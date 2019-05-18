@@ -1,7 +1,7 @@
 // CAN Send Example
 //
 
-#define INPUT_PIN A0
+#define INPUT_PIN A2
 #define CAN0_INT 2
 #define GAIN     0.26096        // GAIN factors
 
