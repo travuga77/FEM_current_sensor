@@ -14,7 +14,6 @@
 #include <mcp_can.h>
 #include <SPI.h>
 #include <SparkFun_ADXL345.h>
-#include <avr/wdt.h>
 
 long unsigned int rxId;
 unsigned char len = 0;
@@ -33,11 +32,10 @@ MCP_CAN CAN0(10);     // Set CS to pin 10
 
 void setup()
 {
-  wdt_enable(WDTO_30MS);
   Serial.begin(115200);
 
   // Initialize MCP2515 running at 16MHz with a baudrate of 500kb/s and the masks and filters disabled.
-  if(CAN0.begin(MCP_ANY, CAN_500KBPS, MCP_8MHZ) == CAN_OK) 
+  if(CAN0.begin(MCP_ANY, CAN_250KBPS, MCP_8MHZ) == CAN_OK) 
     Serial.println("MCP2515 Initialized Successfully!");
   else 
     Serial.println("Error Initializing MCP2515...");
@@ -89,7 +87,6 @@ byte data[8] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07};
 
 void loop()
 {
-  wdt_reset();
   // Get the Accelerometer Readings
   int x,y,z;                          // init variables hold results
   adxl.readAccel(&x, &y, &z);         // Read the accelerometer values and store in variables x,y,z
